@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto ARCA - Início</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: #fff; 
+      color: #1a2b4a; 
+    }
+
+    
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 48px;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-esquerda {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-nav-imagem { 
+      height: 70px; 
+    }
+    .logo-prefeitura {
+      height: 40px;
+      border-left: 1px solid #e5e7eb;
+      padding-left: 16px;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover {
+      background: #eff4ff;
+      color: #1a56db;
+    }
+    .barra-pesquisa {
+      position: relative;
+      width: 220px;
+    }
+    .barra-pesquisa input {
+      width: 100%;
+      padding: 8px 36px 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: #e5e7eb;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .barra-pesquisa::after {
+      content: "🔍";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    
+    .titulobanner {
+      position: relative;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      background: #f0f4ff;
+      overflow: hidden;
+    }
+    .titulobanner-imagem-fundo {
+      position: absolute;
+      right: 10%;
+      bottom: 0;
+      height: 90%;
+      object-fit: contain;
+      z-index: 2;
+    }
+    .carrossel-seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #1a56db;
+      font-size: 42px;
+      font-weight: 300;
+      cursor: pointer;
+      user-select: none;
+      z-index: 5;
+      padding: 0 20px;
+    }
+    .seta-esquerda { left: 20px; }
+    .seta-direita { right: 20px; }
+    
+    .titulobanner-caixa-texto {
+      position: relative;
+      z-index: 3;
+      padding: 40px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 50%;
+    }
+    .titulobanner h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #1e3a8a;
+    }
+    .titulobanner h1 span {
+      color: #ea580c;
+    }
+    .titulobanner-sub {
+      font-size: 14px;
+      color: #4b5563;
+      max-width: 380px;
+    }
+    .btn-titulobanner {
+      display: inline-flex;
+      align-items: center;
+      background: #1a56db;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      width: fit-content;
+      margin-top: 8px;
+    }
+    .carrossel-indicadores {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 4;
+    }
+    .indicador {
+      width: 10px;
+      height: 10px;
+      background: #cbd5e1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .indicador.ativo {
+      background: #1a56db;
+    }
+    .indicador:nth-child(3).ativo {
+      background: #ea580c;
+    }
+
+    
+    .sobre {
+      padding: 60px 80px;
+      background: #fff;
+    }
+    .sobre-titulo {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 40px;
+    }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .sobre-col h3, .sobre-parte h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #06b6d4;
+      margin-bottom: 20px;
+    }
+    .missao-texto {
+      font-size: 13.5px;
+      color: #4b5563;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    
+    .cards-impacto {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-impacto-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .card-impacto-item .icone {
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+    }
+    .card-azul { background: #bfdbfe; color: #1e40af; }
+    .card-laranja { background: #fed7aa; color: #c2410c; }
+    .card-verde { background: #bbf7d0; color: #166534; }
+
+    
+    .passos-adocao {
+      padding: 40px 80px 80px 80px;
+      background: #fff;
+    }
+    .passos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .passo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .passo-numero {
+      width: 60px;
+      height: 60px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+    .passo-item h4 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-top: 8px;
+    }
+    .passo-item p {
+      font-size: 13px;
+      color: #6b7280;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+
+  
+    footer {
+      background: #fff;
+      border-top: 1px solid #f3f4f6;
+      padding: 30px 20px;
+    }
+    .rodape-direitos {
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-esquerda">
+      <img src="elementos UXUI/banner/image 42.png" alt="Projeto ARCA" class="logo-nav-imagem">
+      <div class="logo-prefeitura" style="font-weight: bold; font-size: 11px; color: #4b5563; line-height: 1.2;">
+        PREFEITURA<br><span style="font-weight: 800; color: #1e3a8a; font-size: 13px;">DA SERRA</span>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#">Pets para Adoção</a>
+      <a href="#">ONGs</a>
+      <a href="#">Denunciar</a>
+      <a href="#">Minha Adoção</a>
+      <a href="#" style="color: #1a56db;">opções de Administrador</a>
+    </div>
+
+    <div class="barra-pesquisa">
+      <input type="text" placeholder="pesquisa...">
+    </div>
+  </nav>
+
+  <div class="titulobanner">
+    <div class="carrossel-seta seta-esquerda">‹</div>
+    <div class="carrossel-seta seta-direita">›</div>
+    
+    <img class="titulobanner-imagem-fundo" src="elementos UXUI/banner/banner.png" alt="Banner Animais">
+    
+    <div class="titulobanner-caixa-texto">
+      <h1>Um novo lar<br>tranforma <span>vidas.</span></h1>
+      <p class="titulobanner-sub">Adote, registre e ajude animais a encontrarem um novo começo</p>
+      <a href="#" class="btn-titulobanner">Quero ajudar →</a>
+    </div>
+
+    <div class="carrossel-indicadores">
+      <div class="indicador ativo"></div>
+      <div class="indicador"></div>
+      <div class="indicador"></div>
+    </div>
+  </div>
+
+  <div class="sobre">
+    <h2 class="sobre-titulo">Sobre o Projeto ARCA</h2>
+    
+    <div class="sobre-grid">
+      <div class="sobre-col">
+        <h3>Nossa Missão</h3>
+        <p class="missao-texto">
+          O Projeto ARCA está comprometido em criar um mundo onde todo animal tenha um lar amoroso. 
+          Nus nos esforçamos para conectar indivíduos compassivos com animais necessitados, apoiar o trabalho vital de organizações de bem-estar animal e aumentar a conscientização sobre a posse responsável de animais de estimação.
+        </p>
+      </div>
+
+      <div class="sobre-parte">
+        <h3>Nosso Impacto</h3>
+        <div class="cards-impacto">
+          <div class="card-impacto-item card-azul">
+            <span class="icone">🐾</span>
+            <span>Mais de 500 Animais Resgatados</span>
+          </div>
+          <div class="card-impacto-item card-laranja">
+            <span class="icone">🏠</span>
+            <span>Mais de 300 Adoções Bem-sucedidas</span>
+          </div>
+          <div class="card-impacto-item card-verde">
+            <span class="icone">ⓘ</span>
+            <span>Mais de 50 ONGs Parceiras</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="passos-adocao">
+    <div class="passos-grid">
+      
+      <div class="passo-item">
+        <div class="passo-numero">1</div>
+        <h4>Cadastre-se</h4>
+        <p>Crie sua conta para começar.</p>
+      </div>
+
+      <div class="passo-item">
+        <div class="passo-numero">2</div>
+        <h4>Escolha</h4>
+        <p>Navegue por pets, ONGs ou serviços</p>
+      </div>
+
+      <div class="passo-item">
+        <div class="passo-numero">3</div>
+        <h4>Adote</h4>
+        <p>Complete o processo de adoção</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p class="rodape-direitos">
+      ©2026 Prefeitura do Serra, Todo as direitos naturostre. Contato: (50) 6000 0000 | nume@arra.com
+    </p>
+  </footer>
+
+  <script src="JS/script.js"></script>
+
+</body>
+</html>

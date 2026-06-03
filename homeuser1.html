@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto ARCA - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      color: #1a2b4a;
+    }
+
+    
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-esquerda {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .menu-hamburguer {
+      font-size: 24px;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    .logo-nav-imagem {
+      height: 60px;
+    }
+
+    .barra-pesquisa {
+      position: relative;
+      width: 400px;
+    }
+
+    .barra-pesquisa input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      border: 1px solid #d1d5db;
+      border-radius: 20px;
+      background: #f3f4f6;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+    }
+
+    .barra-pesquisa::before {
+      content: "🔍";
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+
+    .nav-direita {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo-prefeitura {
+      height: 35px;
+    }
+
+    .notificacao {
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notificacao::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 8px;
+      height: 8px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .usuario-perfil {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .usuario-perfil icon {
+      font-size: 24px;
+    }
+
+   
+    .conteudo-principal {
+      max-width: 1300px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    
+    .carrossel {
+      position: relative;
+      background: #eef2ff;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 280px;
+      margin-bottom: 24px;
+    }
+
+    .carrossel-seta {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      color: #2563eb;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .seta-esquerda {
+      left: 16px;
+    }
+
+    .seta-direita {
+      right: 16px;
+    }
+
+    .carrossel-texto {
+      padding: 40px 60px;
+      max-width: 50%;
+      z-index: 2;
+    }
+
+    .carrossel-texto h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1e3a8a;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .carrossel-texto h1 span {
+      color: #ea580c;
+    }
+
+    .carrossel-texto p {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 20px;
+    }
+
+    .btn-ajudar {
+      display: inline-flex;
+      background: #1d4ed8;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .carrossel-imagem-container {
+      position: relative;
+      width: 50%;
+      height: 280px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
+    .carrossel-fundo-patas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.15;
+    }
+
+    .carrossel-animais {
+      position: relative;
+      height: 100%;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    .carrossel-indicadores {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .indicador {
+      width: 10px;
+      height: 10px;
+      background: #cbd5e1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .indicador.ativo {
+      background: #ea580c;
+      width: 24px;
+      border-radius: 5px;
+    }
+
+
+    .grid-status {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card-status {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .status-icone {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-status:nth-child(1) .status-icone {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .card-status:nth-child(2) .status-icone {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .card-status:nth-child(3) .status-icone {
+      background: #fff7ed;
+      color: #ea580c;
+    }
+
+    .card-status:nth-child(4) .status-icone {
+      background: #ecfeff;
+      color: #0891b2;
+    }
+
+    .status-info p {
+      font-size: 13px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .status-info h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.1;
+    }
+
+    .status-info span {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    
+    .grid-inferior {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 24px;
+    }
+
+    
+    .secao-pets {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .secao-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .secao-topo h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .ver-todos {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .grid-pets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card-pet {
+      border: 1px solid #f3f4f6;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pet-imagem {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .tag-disponivel {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #22c55e;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .favorito-pet {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .pet-corpo {
+      padding: 12px;
+    }
+
+    .pet-corpo h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .pet-idade {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pet-tags {
+      display: flex;
+      gap: 6px;
+    }
+
+    .tag-vacina,
+    .tag-castrado {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .tag-vacina {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .tag-castrado {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+
+    .secao-acoes {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .secao-acoes h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .lista-acoes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item-acao {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border: 1px solid #f3f4f6;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+    }
+
+    .item-acao:hover {
+      background: #f9fafb;
+    }
+
+    .acao-esquerda {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .acao-icone {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .item-acao:nth-child(1) .acao-icone {
+      background: #2563eb;
+    }
+
+    .item-acao:nth-child(2) .acao-icone {
+      background: #16a34a;
+    }
+
+    .item-acao:nth-child(3) .acao-icone {
+      background: #ea580c;
+    }
+
+    .acao-texto h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .acao-texto p {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .seta-acao {
+      color: #9ca3af;
+      font-weight: bold;
+    }
+
+    .fundo {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 20px;
+      background: transparent;
+    }
+
+    .fundo-direitos {
+      font-size: 12px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-esquerda">
+      <div class="menu-hamburguer">☰</div>
+      <img src="elementos UXUI/banner/image 42.png" alt="Projeto ARCA" class="logo-nav-imagem">
+      <div class="barra-pesquisa">
+        <input type="text" placeholder="Pesquisar...">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-direita">
+        <div style="font-weight: bold; font-size: 12px; color: #4b5563; text-align: right;">
+          PREFEITURA<br><span style="font-weight: 800; color: #1e3a8a;">DA SERRA</span>
+        </div>
+        <div class="notificacao">🔔</div>
+        <div class="usuario-perfil">
+          <span>👤</span> administrador ▾
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="conteudo-principal">
+
+    <div class="carrossel">
+      <div class="carrossel-seta seta-esquerda">‹</div>
+      <div class="carrossel-seta seta-direita">›</div>
+
+      <div class="carrossel-texto">
+        <h1>Um novo lar<br>transforma <span>vidas.</span></h1>
+        <p>Adote, registre e ajude animais a encontrarem um novo começo</p>
+        <a href="#" class="btn-ajudar">Quero ajudar →</a>
+      </div>
+
+      <div class="carrossel-imagem-container">
+        <img src="elementos UXUI/banner/banner.png" alt="Animais" class="carrossel-animais">
+      </div>
+
+      <div class="carrossel-indicadores">
+        <div class="indicador"></div>
+        <div class="indicador ativo"></div>
+        <div class="indicador"></div>
+      </div>
+    </div>
+
+    <div class="grid-status">
+      <div class="card-status">
+        <div class="status-icone">🐾</div>
+        <div class="status-info">
+          <p style="color: #2563eb;">Animais Disponíveis</p>
+          <h2>3</h2>
+          <span>Para adoção</span>
+        </div>
+      </div>
+
+      <div class="card-status">
+        <div class="status-icone">♥</div>
+        <div class="status-info">
+          <p style="color: #16a34a;">Resgatas Realizados</p>
+          <h2>17</h2>
+          <span>Este mês</span>
+        </div>
+      </div>
+
+      <div class="card-status">
+        <div class="status-icone">🤝</div>
+        <div class="status-info">
+          <p style="color: #ea580c;">Adoções</p>
+          <h2>25</h2>
+          <span>Este mês</span>
+        </div>
+      </div>
+
+      <div class="card-status">
+        <div class="status-icone">🛡️</div>
+        <div class="status-info">
+          <p style="color: #0891b2;">Aguardando Ajuda</p>
+          <h2>5</h2>
+          <span>Casos ativos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-inferior">
+      <div class="secao-pets">
+        <div class="secao-topo">
+          <h3>Pets disponíveis para adoção</h3>
+          <a href="#" class="ver-todos">Ver todos →</a>
+        </div>
+
+        <div class="grid-pets">
+          <div class="card-pet">
+            <span class="tag-disponivel">Disponível</span>
+            <span class="favorito-pet">♥</span>
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" alt="Dog" class="pet-imagem">
+            <div class="pet-corpo">
+              <h4>Nome do animal</h4>
+              <div class="pet-idade">📅 1 ano</div>
+              <div class="pet-tags">
+                <span class="tag-vacina">Vacinado</span>
+                <span class="tag-castrado">Castrado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-pet">
+            <span class="tag-disponivel">Disponível</span>
+            <span class="favorito-pet">♥</span>
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" alt="Cat" class="pet-imagem">
+            <div class="pet-corpo">
+              <h4>Nome do animal</h4>
+              <div class="pet-idade">📅 1 ano</div>
+              <div class="pet-tags">
+                <span class="tag-vacina">Vacinado</span>
+                <span class="tag-castrado">Castrado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-pet">
+            <span class="tag-disponivel">Disponível</span>
+            <span class="favorito-pet">♥</span>
+            <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400" alt="Dog" class="pet-imagem">
+            <div class="pet-corpo">
+              <h4>Nome do animal</h4>
+              <div class="pet-idade">📅 2 anos</div>
+              <div class="pet-tags">
+                <span class="tag-vacina">Vacinado</span>
+                <span class="tag-castrado">Castrado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="secao-acoes">
+        <h3>Ações Rápidas</h3>
+        <div class="lista-acoes">
+
+          <a href="#" class="item-acao">
+            <div class="acao-esquerda">
+              <div class="acao-icone">🐾</div>
+              <div class="acao-texto">
+                <h4>Quero Adotar</h4>
+                <p>Encontre seu novo melhor amigo</p>
+              </div>
+            </div>
+            <div class="seta-acao">›</div>
+          </a>
+
+          <a href="#" class="item-acao">
+            <div class="acao-esquerda">
+              <div class="acao-icone">➕</div>
+              <div class="acao-texto">
+                <h4>Cadastrar Pet</h4>
+                <p>Cadastre um animal</p>
+              </div>
+            </div>
+            <div class="seta-acao">›</div>
+          </a>
+
+          <a href="#" class="item-acao">
+            <div class="acao-esquerda">
+              <div class="acao-icone">🤝</div>
+              <div class="acao-texto">
+                <h4>Fazer Doação</h4>
+                <p>Ajude a manter nosso projeto</p>
+              </div>
+            </div>
+            <div class="seta-acao">›</div>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <main>
+    <div class="fundo"></div>
+    <div class="fundo-direitos"></div>
+  </main>
+  <script src="JS/homeuser.js"></script>
+</body>
+
+</html>
